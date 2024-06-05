@@ -14,13 +14,14 @@ body {
   justify-content: center;
   flex-flow: column;
   gap: 15px;
-  padding: 50px;
+  padding: 20px;
   border-radius: 12px;
   border: 4px solid black;
   position: relative;
   background: rgba(0, 0, 0, 0.292);
   color: aliceblue;
   font-size: 18px;
+  position: relative;
 
   @media (max-width: 550px) {
     background: transparent;
@@ -36,15 +37,37 @@ body {
   color: yellow;
 }
 
+.containerOne__error {
+  padding: 10px;
+  background: red;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: rgb(255, 255, 255);
+  border-radius: 12px;
+  border: 2px solid rgba(0, 0, 0, 0.7);
+  display: none;
+  transition: all .4s;
+}
+
+.containerOne__border, .containerTwo__border, .containerThree__border {
+  border-bottom: 3px solid yellow;
+  display: inline-block;
+  width: 100%;
+  border-radius: 12px;
+  margin-top: -10px;
+}
+.containerOne__border {
+  width: 200px;
+}
+
 .containerTwo, .containerThree {
   display: flex;
   border-radius: 12px;
-  border: 4px solid black;
   flex-flow: column;
   text-align: center;
   align-items: center;
   gap: 15px;
-  padding: 50px;
+  padding: 5px 30px;
   color: green;
   display: none;
 }
