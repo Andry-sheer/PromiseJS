@@ -96,7 +96,7 @@ body {
   @media (max-width: 300px), (max-width: 768px) {
     letter-spacing: 0;
     font-size: 13px;
-    color: red;
+    color: white;
   }
 }
 
