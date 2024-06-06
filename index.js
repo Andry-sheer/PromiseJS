@@ -1,62 +1,58 @@
 
+
 const buttonSearch = document.querySelector('.containerOne__buttonSearch');
-const buttonComment = document.querySelector('.containerTwo__buttonComments');
 const containerOne = document.querySelector('.containerOne');
 const containerTwo = document.querySelector('.containerTwo');
 const containerThree = document.querySelector('.containerThree');
 const containerError = document.querySelector('.containerOne__error');
 const inputSearch = document.querySelector('.containerOne__inputSearch');
-let postValue = {};
 
 buttonSearch.addEventListener('click', show);
 function show(){
 
-  fetch('https://jsonplaceholder.typicode.com/posts')
-  .then(postsData => postsData.json())
-  .then(posts => {
+  const Search = document.getElementById('Search').value
 
-    if (inputSearch.value >= 1 && inputSearch.value <= 100){
+    if (Search >= 1 && Search <= 100){
       containerTwo.style.display = 'flex';
-      posts.userId = inputSearch.value;
-      console.log(posts);
-
-
-      fetch('https://jsonplaceholder.typicode.com/comments')
-      .then(commentData => commentData.json())
-      .then(comment => {
-        console.log(comment);
-    });
-      
-    }else {
+    }
+    else {
       containerError.style.display = 'flex';
       containerTwo.style.display = 'none';
       containerThree.style.display = 'none';
     }
 
-      document.querySelector('.containerTwo__id').textContent = `id: ${posts.userId}`;
-      document.querySelector('.containerTwo__name').textContent = `title: ${posts.title}`;
-      document.querySelector('.containerTwo__username').textContent = `user name: ${posts.username}`;
-      document.querySelector('.containerTwo__email').textContent = `email: ${posts.email}`;
-    
+  if (inputSearch.addEventListener('focusin', ()=> { containerError.style.display = 'none'; }));
+
+  const post = fetch(`https://jsonplaceholder.typicode.com/posts/${Search}`)
+    .then(responsePosts => responsePosts.json());
+
+  const comment = fetch(`https://jsonplaceholder.typicode.com/comments/${Search}`)
+    .then(responseComment => responseComment.json());
+
+      Promise.all([post, comment]).then(data => {
+
+        const id = document.querySelector('.containerTwo__id');
+        const title = document.querySelector('.containerTwo__title');
+        const userId = document.querySelector('.containerTwo__userId');
+        const body = document.querySelector('.containerTwo__body');
+        const buttonComment = document.querySelector('.containerTwo__buttonComments');
+        const comment_1 = document.querySelector('.containerThree__comment1');
+        const comment_2 = document.querySelector('.containerThree__comment2');
+        const comment_3 = document.querySelector('.containerThree__comment3');
+        const comment_4 = document.querySelector('.containerThree__comment4');
+
+        body.textContent = `BODY: ${data[0].body}`;
+        id.textContent = `ID: ${data[0].id}`;
+        title.textContent = `TITLE: ${data[0].title}`;
+        userId.textContent = `USER_ID: ${data[0].userId}`;
+
+      buttonComment.addEventListener('click', commenti);
+        function commenti() {
+          containerThree.style.display = 'flex';
+          comment_1.textContent = `COMMENTAR ID: ${data[1].id}`;
+          comment_2.textContent = `${data[1].body}`;
+          comment_3.textContent = `EMAIL: ${data[1].email}`;
+          comment_4.textContent = `NAME: ${data[1].name}`;
+    }
   })
-
-  
-
-
-
-
-
-  if (inputSearch.addEventListener('focusin', ()=> { containerError.style.display = 'none'; }) || containerOne.addEventListener('click', ()=> { containerError.style.display = 'none'; }));
-}
-
-// buttonComment.addEventListener('click', comment); 
-// function comment(){
-//   containerThree.style.display = 'flex';
-// }
-
-// https://jsonplaceholder.typicode.com/posts
-
-// https://jsonplaceholder.typicode.com/comments
-
-
-
+};
