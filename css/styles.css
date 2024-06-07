@@ -90,7 +90,7 @@ body {
   align-items: center;
   gap: 15px;
   padding: 0 30px;
-  color: green;
+  color: white;
   display: none;
 
   @media (max-width: 300px), (max-width: 768px) {
